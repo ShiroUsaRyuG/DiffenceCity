@@ -10,7 +10,12 @@ public class EnemyController : MonoBehaviour
     private PathData pathData;
     [SerializeField, Header("ˆÚ“®‘¬“x")]
     private float moveSpeed;
+    [SerializeField, Header("Å‘å‘Ì—Í")]
+    private int maxHP;
+    [SerializeField]
+    private int currentHP;
 
+    private Tween tween;
     private Vector3[] paths;
     private Animator anim;
     //private Vector3 currentPos;
@@ -18,11 +23,13 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHP = maxHP;
+
         TryGetComponent(out anim);
 
         paths = pathData.pathTranArray.Select(x => x.position).ToArray();
 
-        transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).OnWaypointChange(ChangeAnimeDirection);
+        tween = transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).OnWaypointChange(ChangeAnimeDirection);
     }
 
     // Update is called once per frame
@@ -34,14 +41,36 @@ public class EnemyController : MonoBehaviour
     void ChangeAnimeDirection(int index)
     {
         Debug.Log(index);
-        if (index >= paths.Length) return;
+        if (index >= paths.Length)
+        {
+            anim.SetFloat("X", 0);
+            anim.SetFloat("Y", 0);
+            return;
+        }
 
-        Vector3 direction = (paths[index] - transform.position).normalized;
+        Vector3 direction = (transform.position - paths[index]).normalized;
         Debug.Log(direction);
 
         anim.SetFloat("X", direction.x);
         anim.SetFloat("Y", direction.y);
 
         //currentPos = transform.position;
+    }
+
+    public void CulcDamage(int amount)
+    {
+        currentHP = Mathf.Clamp(currentHP -= amount, 0, maxHP);
+        Debug.Log("Žc‚èHP:" + currentHP);
+
+        if (currentHP <= 0)
+        {
+            DestroyEnemy();
+        }
+    }
+
+    public void DestroyEnemy()
+    {
+        tween.Kill();
+        Destroy(gameObject);
     }
 }
