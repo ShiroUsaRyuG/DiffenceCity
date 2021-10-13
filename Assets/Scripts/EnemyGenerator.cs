@@ -9,34 +9,37 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField]
     private PathData pathData;
 
-    public bool isEnemyGenerate;
-    public int generateIntervalTime;
-    public int generateEnemyCount;
-    public int maxEnemyCount;
+    private GameManager gameManager;
+    //public bool isEnemyGenerate;
+    //public int generateIntervalTime;
+    //public int generateEnemyCount;
+    //public int maxEnemyCount;
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         isEnemyGenerate = true;
         StartCoroutine(PreparateEnemyGenerate());
-    }
+    }*/
 
-    public IEnumerator PreparateEnemyGenerate()
+    public IEnumerator PreparateEnemyGenerate(GameManager gameManager)
     {
+        this.gameManager = gameManager;
         int timer = 0;
-        while (isEnemyGenerate)
+        while (gameManager.isEnemyGenerate)
         {
             timer++;
-            GenerateEnemy();
-            generateEnemyCount++;
-            if (generateEnemyCount >= maxEnemyCount)
+            if (timer > gameManager.generateIntevalTine)
             {
-                isEnemyGenerate = false;
+                timer = 0;
+                GenerateEnemy();
+                gameManager.AddEnemyList();
+                gameManager.JudgeGenerateEnemysEnd();
             }
+            yield return null;
         }
-        yield return null;
     }
-
+   
     public void GenerateEnemy()
     {
         EnemyController enemyController = 
