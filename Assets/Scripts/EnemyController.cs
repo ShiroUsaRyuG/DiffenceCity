@@ -20,16 +20,15 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     //private Vector3 currentPos;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetUpEnemyController(Vector3[] pathsData)
     {
         currentHP = maxHP;
-
         TryGetComponent(out anim);
 
-        paths = pathData.pathTranArray.Select(x => x.position).ToArray();
-
+        paths = pathsData;
         tween = transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).OnWaypointChange(ChangeAnimeDirection);
+
+        PauseMove();
     }
 
     // Update is called once per frame
@@ -73,4 +72,8 @@ public class EnemyController : MonoBehaviour
         tween.Kill();
         Destroy(gameObject);
     }
+
+    public void PauseMove() { tween.Pause(); }
+
+    public void ResumeMove() { tween.Play(); }
 }
