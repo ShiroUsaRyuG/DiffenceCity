@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
     private int maxHP;
     [SerializeField]
     private int currentHP;
+    [Header("UŒ‚—Í")]
+    public int atp;
 
     private Tween tween;
     private Vector3[] paths;
