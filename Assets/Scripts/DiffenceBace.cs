@@ -9,9 +9,13 @@ public class DiffenceBace : MonoBehaviour
     private int CoreCurrentHP;
     private int EnemyDamage;
 
+    [SerializeField]
+    private CoreUI coreUI;
+
     private void Start()
     {
         CoreCurrentHP = CoreMaxHP;
+        coreUI.HitPointManager(CoreCurrentHP, CoreMaxHP);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,6 +24,7 @@ public class DiffenceBace : MonoBehaviour
         {
             EnemyDamage = collision.gameObject.GetComponent<EnemyController>().atp;
             CoreCurrentHP = CoreCurrentHP - EnemyDamage;
+            coreUI.HitPointManager(CoreCurrentHP, CoreMaxHP);
             Debug.Log("Žc‚è‘Ì—Í : "+CoreCurrentHP);
 
             //“GƒLƒƒƒ‰‚Ì”j‰ó
