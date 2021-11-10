@@ -13,46 +13,55 @@ MonoBehaviour:
   m_Name: CharaDataSO
   m_EditorClassIdentifier: 
   charaDatasList:
-  - charaName: Alpha
+  - charaName: Dolittle
     charaNo: 0
     cost: 100
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: 6990084067037037992, guid: 577354d6457a60545af3af60d0c81986, type: 3}
     attackPower: 1
     attackRange: 0
     intervalAttackTime: 120
     maxAttackCount: 3
     discription: 
-  - charaName: 
-    charaNo: 0
+  - charaName: Lena
+    charaNo: 1
+    cost: 200
+    charaSprite: {fileID: 7934829185154413836, guid: 85fe7bb371adcaa439270c36394659e0, type: 3}
+    attackPower: 2
+    attackRange: 0
+    intervalAttackTime: 200
+    maxAttackCount: 2
+    discription: 
+  - charaName: Millia
+    charaNo: 2
+    cost: 50
+    charaSprite: {fileID: 7212361248906449193, guid: 7c9ba2526be7ace4889e4c9ff26c8009, type: 3}
+    attackPower: 75
+    attackRange: 0
+    intervalAttackTime: 60
+    maxAttackCount: 4
+    discription: 
+  - charaName: Fabius
+    charaNo: 3
     cost: 0
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: 9042302761585874998, guid: 454ed7373ef18bd419bb2cb18bd437a8, type: 3}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0
     maxAttackCount: 0
     discription: 
-  - charaName: 
-    charaNo: 0
+  - charaName: Sora
+    charaNo: 4
     cost: 0
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: -4777538767803800411, guid: 3f835fca7c66ebe4f87c9999fff94f58, type: 3}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0
     maxAttackCount: 0
     discription: 
-  - charaName: 
-    charaNo: 0
+  - charaName: Lana
+    charaNo: 5
     cost: 0
-    charaSprite: {fileID: 0}
-    attackPower: 0
-    attackRange: 0
-    intervalAttackTime: 0
-    maxAttackCount: 0
-    discription: 
-  - charaName: 
-    charaNo: 0
-    cost: 0
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: 4498437019030865409, guid: 1f41661f539821f4caefca676632a077, type: 3}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0

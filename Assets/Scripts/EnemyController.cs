@@ -62,6 +62,7 @@ public class EnemyController : MonoBehaviour
     {
         currentHP = Mathf.Clamp(currentHP -= amount, 0, maxHP);
         Debug.Log("Žc‚èHP:" + currentHP);
+        StartCoroutine(EnemyHitStop());
 
         if (currentHP <= 0)
         {
@@ -78,4 +79,11 @@ public class EnemyController : MonoBehaviour
     public void PauseMove() { tween.Pause(); }
 
     public void ResumeMove() { tween.Play(); }
+
+    public IEnumerator EnemyHitStop()
+    {
+        tween.timeScale = 0.3f;
+        yield return new WaitForSeconds(0.8f);
+        tween.timeScale = 1.0f;
+    }
 }
