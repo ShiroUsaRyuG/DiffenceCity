@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private EnemyGenerator enemyGenerator;
+    [SerializeField]
+    private CharaGenerator charaGenerator;
 
     public bool isEnemyGenerate;
     public int generateIntevalTine;
@@ -15,12 +17,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(charaGenerator.SetUpCharaGenerator(this));
         isEnemyGenerate = true;
         StartCoroutine(enemyGenerator.PreparateEnemyGenerate(this));
     }
 
     public void AddEnemyList()
     {
+        // TODO “G‚Ìî•ñ‚ğList‚É’Ç‰Á
         generateEnemyCount++;
     }
 
