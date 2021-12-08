@@ -47,7 +47,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
             SelectCharaDetail selectCharaDetail = Instantiate(selectCharaDetailPrefab, selectCharaDetailTran, false);
             selectCharaDetail.SetUpSelectCharaDetail(this, haveCharaDataList[i]);
             selectCharaDetailsList.Add(selectCharaDetail);
-                if (i == 0)
+            if (i == 0)
             {
                 SetSelectCharaDetail(haveCharaDataList[i]);
             }
@@ -72,7 +72,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
     private void OnClickSubmitChooseChara()
     {
         // TODO コストの支払いが可能か最終確認
-        // TODO 選択しているキャラの生成
+        charaGenerator.CreateChara(chooseCharaData);
         HidePopUp();
     }
 

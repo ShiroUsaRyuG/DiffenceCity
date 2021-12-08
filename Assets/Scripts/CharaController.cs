@@ -16,7 +16,17 @@ public class CharaController : MonoBehaviour
     [SerializeField]
     private int attackCount;
     [SerializeField]
-    private Text countText; 
+    private Text countText;
+    [SerializeField]
+    private BoxCollider2D attackRangeArea;
+    [SerializeField]
+    private CharaData charaData;
+
+    private GameManager gameManager;
+    private Animator anim;
+    private string overrideClipName = "Chara_0";
+    private AnimatorOverrideController overrideController;
+
 
     private void Start()
     {
@@ -48,6 +58,10 @@ public class CharaController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// UŒ‚€”õ
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator PrepareteAttack()
     {
         Debug.Log("UŒ‚€”õŠJn");
@@ -65,6 +79,9 @@ public class CharaController : MonoBehaviour
         if (attackCount <= 0) CharaDestroy();
     }
 
+    /// <summary>
+    /// UŒ‚
+    /// </summary>
     private void Attack()
     {
         Debug.Log("UŒ‚");
@@ -77,5 +94,50 @@ public class CharaController : MonoBehaviour
     {
         //ƒLƒƒƒ‰‚ğ”j‰ó‚·‚é‘O‚És‚¤ˆ—‚ğ‚±‚±‚É‹L“ü
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// ƒLƒƒƒ‰ƒf[ƒ^‚ğİ’è‚·‚é
+    /// </summary>
+    /// <param name="chara"></param>
+    public void SetCharaData(CharaData chara ,GameManager gameManager)
+    {
+        this.charaData = chara;
+        this.gameManager = gameManager;
+
+        attackPower = chara.attackPower;
+        attackInterval = chara.intervalAttackTime;
+        attackCount = chara.maxAttackCount;
+        attackRangeArea.size = DataBaseManager.instance.GetAttackRangeSize(chara.attackRange);
+        countText.text = attackCount.ToString();
+        SetUpAnimation();
+    }
+
+    /// <summary>
+    /// Motion ‚É“o˜^‚³‚ê‚Ä‚¢‚é AnimationClip ‚ğ•ÏX
+    /// </summary>
+    private void SetUpAnimation()
+    {
+        if (TryGetComponent(out anim))
+        {
+            overrideController = new AnimatorOverrideController();
+            overrideController.runtimeAnimatorController = anim.runtimeAnimatorController;
+            anim.runtimeAnimatorController = overrideController;
+
+            AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+            for (int i = 0; i < anim.layerCount; i++)
+            {
+                layerInfo[i] = anim.GetCurrentAnimatorStateInfo(i);
+            }
+
+            overrideController[overrideClipName] = this.charaData.charaAnim;
+            anim.runtimeAnimatorController = overrideController;
+            anim.Update(0.0f);
+
+            for (int i = 0; i < anim.layerCount; i++)
+            {
+                anim.Play(layerInfo[i].fullPathHash, i, layerInfo[i].normalizedTime);
+            }
+        }
     }
 }

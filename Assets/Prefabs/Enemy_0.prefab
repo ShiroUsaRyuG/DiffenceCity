@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathData: {fileID: 7748803223683769177, guid: 29c7f238c1f864145aeaf6339e7f93b6, type: 3}
-  moveSpeed: 150
+  moveSpeed: 50
   maxHP: 3
   currentHP: 0
   atp: 5

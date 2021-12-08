@@ -7,7 +7,7 @@ public class CharaGenerator : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject charaPrefab;
+    private CharaController charaPrefab;
     [SerializeField]
     private Grid grid;
     [SerializeField]
@@ -16,6 +16,8 @@ public class CharaGenerator : MonoBehaviour
     private PlacementCharaSelectPopUp placementCharaSelectPopUpPrefab;
     [SerializeField]
     private Transform canvasTran;
+    [SerializeField, Header("キャラのデータリスト")]
+    private List<CharaData> charaDatasList = new List<CharaData>();
 
     private PlacementCharaSelectPopUp placementCharaSelectPopUp;
     private GameManager gameManager;
@@ -42,15 +44,14 @@ public class CharaGenerator : MonoBehaviour
     {
         this.gameManager = gameManager;
         // TODO ステージのデータを取得
-        // TODO キャラのデータをリスト化
+        CreateHaveCharaDatasList();
         yield return StartCoroutine(CreatePlacementCharaSelectPopUp());
     }
 
     private IEnumerator CreatePlacementCharaSelectPopUp()
     {
         placementCharaSelectPopUp = Instantiate(placementCharaSelectPopUpPrefab, canvasTran, false);
-        // TODO あとでキャラ設定用の情報も渡す
-        placementCharaSelectPopUp.SetUpPlacementCharaSelectPopUp(this);
+        placementCharaSelectPopUp.SetUpPlacementCharaSelectPopUp(this, charaDatasList);
         placementCharaSelectPopUp.gameObject.SetActive(false);
 
         yield return null;
@@ -73,10 +74,21 @@ public class CharaGenerator : MonoBehaviour
 
     }
 
-    //void CreateChara(Vector3Int gridPos)
-    //{
-    //    GameObject chara = Instantiate(charaPrefab, gridPos, Quaternion.identity);
-    //    chara.transform.position =
-    //        new Vector2(chara.transform.position.x + 0.5f, chara.transform.position.y + 0.5f);
-    //}
+    private void CreateHaveCharaDatasList()
+    {
+        // TODO ﾌﾟﾚｲﾔｰが所持しているキャラの通し番号でリストを作成
+        for (int i = 0; i < DataBaseManager.instance.charaDataSO.charaDatasList.Count; i++)
+        {
+            charaDatasList.Add(DataBaseManager.instance.charaDataSO.charaDatasList[i]);
+        }
+    }
+
+    public void CreateChara(CharaData charaData)
+    {
+        CharaController chara = Instantiate(charaPrefab, gridPos, Quaternion.identity);
+        chara.SetCharaData(charaData, gameManager);
+        chara.transform.position =
+            new Vector2(chara.transform.position.x + 0.5f, chara.transform.position.y + 0.5f);
+        Debug.Log(charaData.charaName);
+    }
 }

@@ -17,6 +17,7 @@ MonoBehaviour:
     charaNo: 0
     cost: 100
     charaSprite: {fileID: 6990084067037037992, guid: 577354d6457a60545af3af60d0c81986, type: 3}
+    charaAnim: {fileID: 7400000, guid: 7a5ca2df60e66ce4c89d98164db21dba, type: 2}
     attackPower: 1
     attackRange: 0
     intervalAttackTime: 120
@@ -26,8 +27,9 @@ MonoBehaviour:
     charaNo: 1
     cost: 200
     charaSprite: {fileID: 7934829185154413836, guid: 85fe7bb371adcaa439270c36394659e0, type: 3}
+    charaAnim: {fileID: 7400000, guid: e432ffcd7ba72bc4c89197a0c94111cb, type: 2}
     attackPower: 2
-    attackRange: 0
+    attackRange: 1
     intervalAttackTime: 200
     maxAttackCount: 2
     discription: 
@@ -35,8 +37,9 @@ MonoBehaviour:
     charaNo: 2
     cost: 50
     charaSprite: {fileID: 7212361248906449193, guid: 7c9ba2526be7ace4889e4c9ff26c8009, type: 3}
+    charaAnim: {fileID: 7400000, guid: 95dc35ecbf750d441aebbcab39167c67, type: 2}
     attackPower: 75
-    attackRange: 0
+    attackRange: 2
     intervalAttackTime: 60
     maxAttackCount: 4
     discription: 
@@ -44,6 +47,7 @@ MonoBehaviour:
     charaNo: 3
     cost: 0
     charaSprite: {fileID: 9042302761585874998, guid: 454ed7373ef18bd419bb2cb18bd437a8, type: 3}
+    charaAnim: {fileID: 7400000, guid: 7c5fc5618aae03940a9e2930c841f67e, type: 2}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0
@@ -53,6 +57,7 @@ MonoBehaviour:
     charaNo: 4
     cost: 0
     charaSprite: {fileID: -4777538767803800411, guid: 3f835fca7c66ebe4f87c9999fff94f58, type: 3}
+    charaAnim: {fileID: 7400000, guid: 0a36399fd913d88449ebf4a447f2ff24, type: 2}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0
@@ -62,6 +67,7 @@ MonoBehaviour:
     charaNo: 5
     cost: 0
     charaSprite: {fileID: 4498437019030865409, guid: 1f41661f539821f4caefca676632a077, type: 3}
+    charaAnim: {fileID: 7400000, guid: b97c8d79d156c374f924727fea65d5ea, type: 2}
     attackPower: 0
     attackRange: 0
     intervalAttackTime: 0

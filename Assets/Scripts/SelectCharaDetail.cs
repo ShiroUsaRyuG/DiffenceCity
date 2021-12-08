@@ -28,6 +28,6 @@ public class SelectCharaDetail : MonoBehaviour
     private void OnClickSelectCharaDetail()
     {
         // TODO ƒAƒjƒ‰‰o
-        //placementCharaSelectPopUp.SetSelectCharaDetail(charaData);
+        placementCharaSelectPopUp.SetSelectCharaDetail(charaData);
     }
 }

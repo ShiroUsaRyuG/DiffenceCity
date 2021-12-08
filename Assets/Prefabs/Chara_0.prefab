@@ -340,6 +340,17 @@ MonoBehaviour:
   enemy: {fileID: 0}
   attackCount: 3
   countText: {fileID: 38846723}
+  attackRangeArea: {fileID: 7737242217473593304}
+  charaData:
+    charaName: 
+    charaNo: 0
+    cost: 0
+    charaSprite: {fileID: 0}
+    attackPower: 0
+    attackRange: 0
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
 --- !u!1 &9092301967496673582
 GameObject:
   m_ObjectHideFlags: 0
