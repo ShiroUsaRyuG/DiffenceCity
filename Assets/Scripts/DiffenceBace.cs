@@ -22,13 +22,14 @@ public class DiffenceBace : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            EnemyDamage = collision.gameObject.GetComponent<EnemyController>().atp;
+            EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
+            EnemyDamage = enemyController.atp;
             CoreCurrentHP = CoreCurrentHP - EnemyDamage;
             coreUI.HitPointManager(CoreCurrentHP, CoreMaxHP);
             Debug.Log("残り体力 : "+CoreCurrentHP);
 
             //敵キャラの破壊
-            Destroy(collision.gameObject, 0.5f) ;
+            enemyController.DestroyEnemy();
 
             //ダメージ演出
             //TODO メゾットを作っておく:ゲームオーバー処理

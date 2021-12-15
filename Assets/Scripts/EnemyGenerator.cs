@@ -32,19 +32,21 @@ public class EnemyGenerator : MonoBehaviour
         int timer = 0;
         while (gameManager.isEnemyGenerate)
         {
-            timer++;
-            if (timer > gameManager.generateIntevalTine)
+            if (this.gameManager.currentGameState == GameManager.GameState.Play)
             {
-                timer = 0;
-                GenerateEnemy();
-                gameManager.AddEnemyList();
-                gameManager.JudgeGenerateEnemysEnd();
+                timer++;
+                if (timer > gameManager.generateIntevalTine)
+                {
+                    timer = 0;
+                    gameManager.AddEnemyList(GenerateEnemy());
+                    gameManager.JudgeGenerateEnemysEnd();
+                }
             }
             yield return null;
         }
     }
    
-    public void GenerateEnemy()
+    public EnemyController GenerateEnemy()
     {
         int randomValue = Random.Range(0, pathDatas.Length);
 
@@ -52,13 +54,15 @@ public class EnemyGenerator : MonoBehaviour
             Instantiate(enemyControllerPrefab, pathDatas[randomValue].generateTran.position, Quaternion.identity);
 
         Vector3[] paths = pathDatas[randomValue].pathTranArray.Select(x => x.position).ToArray();
-        enemyController.SetUpEnemyController(paths);
+        enemyController.SetUpEnemyController(paths, gameManager);
         StartCoroutine(PreparateCreatePathLine(paths, enemyController));
+        return enemyController;
     }
 
     private IEnumerator PreparateCreatePathLine(Vector3[] paths, EnemyController enemyController)
     {
         yield return StartCoroutine(CreatePathLine(paths));
+        yield return new WaitUntil(() => gameManager.currentGameState == GameManager.GameState.Play);
         enemyController.ResumeMove();
     }
 

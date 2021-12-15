@@ -37,7 +37,7 @@ public class CharaController : MonoBehaviour
     {
         if (!isAttack && !enemy)
         {
-            Debug.Log("標的確認");
+            //Debug.Log("標的確認");
             //Destroy(collision.gameObject);
             if (collision.gameObject.TryGetComponent(out enemy))
             {

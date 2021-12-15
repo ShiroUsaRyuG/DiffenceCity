@@ -28,7 +28,8 @@ public class CharaGenerator : MonoBehaviour
     void Update()
     {
         //TODO 配置できる最大キャラ数に達している場合には配置できない
-        if (Input.GetMouseButtonDown(0) && !placementCharaSelectPopUp.gameObject.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !placementCharaSelectPopUp.gameObject.activeSelf 
+            && gameManager.currentGameState == GameManager.GameState.Play)
         {
             gridPos = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
@@ -40,6 +41,11 @@ public class CharaGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// /設定
+    /// </summary>
+    /// <param name="gameManager"></param>
+    /// <returns></returns>
     public IEnumerator SetUpCharaGenerator(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -48,6 +54,10 @@ public class CharaGenerator : MonoBehaviour
         yield return StartCoroutine(CreatePlacementCharaSelectPopUp());
     }
 
+    /// <summary>
+    /// 配置キャラ選択用ポップアップの生成
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CreatePlacementCharaSelectPopUp()
     {
         placementCharaSelectPopUp = Instantiate(placementCharaSelectPopUpPrefab, canvasTran, false);
@@ -57,23 +67,36 @@ public class CharaGenerator : MonoBehaviour
         yield return null;
     }
 
+    /// <summary>
+    /// 配置キャラ選択用ポップアップの表示
+    /// </summary>
     public void ActivatePlacementCharaSelectPopUp()
     {
-        // TODO ゲームの進行状態をゲーム停止に変更
-        // TODO すべての敵の行動を一時停止
+
+        gameManager.SetGameState(GameManager.GameState.Stop);
+        gameManager.PauseEnemies();
         placementCharaSelectPopUp.gameObject.SetActive(true);
         placementCharaSelectPopUp.ShowPopUp();
     }
 
+    /// <summary>
+    /// 配置キャラ選択用ポップアップの非表示
+    /// </summary>
     public void InactivatePlacementCharaSelectPopUp()
     {
         placementCharaSelectPopUp.gameObject.SetActive(false);
-        // TODO ゲームオーバーやゲームクリアではないときにゲームをプレイ中に変更し、ゲーム再開
-        // TODO すべての敵の移動を再開
-        // TODO カレンシーの加算処理を再開
+        if (gameManager.currentGameState == GameManager.GameState.Stop)
+        {
+            gameManager.SetGameState(GameManager.GameState.Play);
+            gameManager.ResumeEnemies();
+            // TODO カレンシーの加算処理を再開
+        }
 
     }
 
+    /// <summary>
+    /// キャラのデータのリスト化
+    /// </summary>
     private void CreateHaveCharaDatasList()
     {
         // TODO ﾌﾟﾚｲﾔｰが所持しているキャラの通し番号でリストを作成
@@ -83,6 +106,10 @@ public class CharaGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 選択したキャラを生成して配置
+    /// </summary>
+    /// <param name="charaData"></param>
     public void CreateChara(CharaData charaData)
     {
         CharaController chara = Instantiate(charaPrefab, gridPos, Quaternion.identity);

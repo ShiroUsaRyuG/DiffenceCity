@@ -17,13 +17,16 @@ public class EnemyController : MonoBehaviour
     [Header("çUåÇóÕ")]
     public int atp;
 
+    private GameManager gameManager;
     private Tween tween;
     private Vector3[] paths;
     private Animator anim;
     //private Vector3 currentPos;
 
-    public void SetUpEnemyController(Vector3[] pathsData)
+    public void SetUpEnemyController(Vector3[] pathsData ,GameManager getGameManager)
     {
+        gameManager = getGameManager;
+
         currentHP = maxHP;
         TryGetComponent(out anim);
 
@@ -72,8 +75,9 @@ public class EnemyController : MonoBehaviour
 
     public void DestroyEnemy()
     {
+        gameManager.DestroyCount(this);
         tween.Kill();
-        Destroy(gameObject);
+        Destroy(gameObject);    
     }
 
     public void PauseMove() { tween.Pause(); }
