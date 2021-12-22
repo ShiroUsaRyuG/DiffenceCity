@@ -37,6 +37,11 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
 
     private CharaData chooseCharaData;
 
+    /// <summary>
+    /// ポップアップの設定
+    /// </summary>
+    /// <param name="charaGenerator"></param>
+    /// <param name="haveCharaDataList"></param>
     public void SetUpPlacementCharaSelectPopUp(CharaGenerator charaGenerator, List<CharaData> haveCharaDataList)
     {
         this.charaGenerator = charaGenerator;
@@ -57,35 +62,55 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
         SwitchActivateButtons(true);
     }
 
+    /// <summary>
+    /// 各ボタンのアクティブ状態の切り替え
+    /// </summary>
+    /// <param name="isSwitch"></param>
     public void SwitchActivateButtons(bool isSwitch)
     {
         btnChooseChara.interactable = isSwitch;
         btnClosePopUp.interactable = isSwitch;
     }
 
+    /// <summary>
+    /// ポップアップの表示
+    /// </summary>
     public void ShowPopUp()
     {
-        // TODO 各キャラのボタン制御
+        CheckAllCharaButtons();
         canvasGroup.DOFade(1.0f, 0.5f);
     }
 
+    /// <summary>
+    /// 配置ボタンを押した際の処理
+    /// </summary>
     private void OnClickSubmitChooseChara()
     {
-        // TODO コストの支払いが可能か最終確認
+        if (chooseCharaData.cost > GameData.instance.currency)
+        {
+            return;
+        }
         charaGenerator.CreateChara(chooseCharaData);
         HidePopUp();
     }
 
+    /// <summary>
+    /// 戻るボタンを押した際の処理
+    /// </summary>
     private void OnClickClosePopUp()
     {
         HidePopUp();
     }
 
+    /// <summary>
+    /// ポップアップの非表示
+    /// </summary>
     private void HidePopUp()
     {
-        // TODO 各キャラのボタンの制御
+        CheckAllCharaButtons();
         canvasGroup.DOFade(0, 0.5f).OnComplete(() => charaGenerator.InactivatePlacementCharaSelectPopUp());
     }
+
 
     public void SetSelectCharaDetail(CharaData charaData)
     {
@@ -96,6 +121,15 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
         txtPickupCharaAttackRangeType.text = charaData.attackRange.ToString();
         txtPickupCharaCost.text = charaData.cost.ToString();
         txtPickupCharaMaxAttackCount.text = charaData.maxAttackCount.ToString();
+    }
 
+    private void CheckAllCharaButtons()
+    {
+        if (selectCharaDetailsList.Count > 0)
+        {
+            for (int i = 0; i < selectCharaDetailsList.Count; i++)
+                selectCharaDetailsList[i].ChangeActiveButton(selectCharaDetailsList[i]
+                    .JudgePermissionCost(GameData.instance.currency));
+        }
     }
 }

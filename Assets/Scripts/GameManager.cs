@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private CharaGenerator charaGenerator;
     [SerializeField]
     private List<EnemyController> enemiesList = new List<EnemyController>();
+    [SerializeField]
+    private List<CharaController> charasList = new List<CharaController>();
 
     public bool isEnemyGenerate;
     public int generateIntevalTine;
@@ -109,6 +111,10 @@ public class GameManager : MonoBehaviour
         enemiesList.Remove(removeEnemy);
     }
 
+    /// <summary>
+    /// 時間の経過に応じてカレンシーを追加
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CurrencyCulc()
     {
         timer = 0;
@@ -132,6 +138,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 破壊した敵の数をカウント
+    /// </summary>
+    /// <param name="enemy"></param>
     public void DestroyCount(EnemyController enemy)
     {
         RemoveEnemyList(enemy);
@@ -139,8 +149,39 @@ public class GameManager : MonoBehaviour
         if (destroyCount == maxEnemyCount) GameClear();
     }
 
+    /// <summary>
+    /// ゲームクリア判定
+    /// </summary>
     public void GameClear()
     {
         Debug.Log("ゲームクリア！");
+    }
+
+    /// <summary>
+    /// 選択したキャラの情報を List に追加
+    /// </summary>
+    /// <param name="chara"></param>
+    public void AddCharasList(CharaController chara)
+    {
+        charasList.Add(chara);
+    }
+
+    /// <summary>
+    /// 選択したキャラを破棄し、情報をListから削除
+    /// </summary>
+    /// <param name="chara"></param>
+    public void RemoveCharasList(CharaController chara)
+    {
+        Destroy(chara.gameObject);
+        charasList.Remove(chara);
+    }
+
+    /// <summary>
+    /// 現在の配置しているキャラ数の取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetPlacementCharaCount()
+    {
+        return charasList.Count;
     }
 }

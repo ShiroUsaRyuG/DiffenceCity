@@ -1850,6 +1850,7 @@ MonoBehaviour:
   maxCurrency: 1000
   currencyIntervalTime: 60
   addCurrencyPoint: 100
+  maxCharaPlacementCount: 5
 --- !u!4 &1437711822
 Transform:
   m_ObjectHideFlags: 0
@@ -3954,6 +3955,7 @@ MonoBehaviour:
   enemyGenerator: {fileID: 1576192795}
   charaGenerator: {fileID: 93163238}
   enemiesList: []
+  charasList: []
   isEnemyGenerate: 0
   generateIntevalTine: 400
   generateEnemyCount: 0
