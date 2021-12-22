@@ -1847,9 +1847,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currency: 0
-  maxCurrency: 0
-  currencyIntervalTime: 0
-  addCurrencyPoint: 0
+  maxCurrency: 1000
+  currencyIntervalTime: 60
+  addCurrencyPoint: 100
 --- !u!4 &1437711822
 Transform:
   m_ObjectHideFlags: 0
@@ -3959,6 +3959,7 @@ MonoBehaviour:
   generateEnemyCount: 0
   maxEnemyCount: 5
   destroyCount: 0
+  uiManager: {fileID: 2113230268}
   currentGameState: 0
 --- !u!4 &1869607963
 Transform:
@@ -4053,6 +4054,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043726423}
   m_CullTransparentMesh: 1
+--- !u!1 &2113230267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113230269}
+  - component: {fileID: 2113230268}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2113230268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113230267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c7b829685931f49af2ea0c356ee548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtCost: {fileID: 2043726425}
+--- !u!4 &2113230269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113230267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140896935
 GameObject:
   m_ObjectHideFlags: 0

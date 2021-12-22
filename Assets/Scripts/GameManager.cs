@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public int destroyCount = 0;
 
     int timer;
+    public UIManager uiManager;
+
 
     /// <summary>
     /// ゲームの状態
@@ -38,7 +40,6 @@ public class GameManager : MonoBehaviour
     {
         SetGameState(GameState.Preparate);
         // TODO ゲームデータを初期化
-        // ステージの設定とステージごとの PathData を設定
         StartCoroutine(charaGenerator.SetUpCharaGenerator(this));
         // TODO 拠点の設定
         // TODO オープニング演出再生
@@ -111,11 +112,21 @@ public class GameManager : MonoBehaviour
     public IEnumerator CurrencyCulc()
     {
         timer = 0;
-        while (currentGameState == GameState.GameUp)
+        while (currentGameState != GameState.GameUp)
         {
             if(currentGameState == GameState.Play)
             {
                 timer++;
+
+                if (timer > GameData.instance.currencyIntervalTime && 
+                    GameData. instance.currency < GameData.instance.maxCurrency)
+                {
+                    timer = 0;
+                    GameData.instance.currency = 
+                        Mathf.Clamp(GameData.instance.currency += GameData.instance.addCurrencyPoint,
+                        0, GameData.instance.maxCurrency);
+                    uiManager.UpdateDisplayCurrency();
+                }
             }
             yield return null;
         }
