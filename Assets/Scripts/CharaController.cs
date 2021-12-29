@@ -68,11 +68,14 @@ public class CharaController : MonoBehaviour
         int timer = 0;
         while (isAttack && attackCount > 0)
         {
-            timer++;
-            if (timer > attackInterval)
+            if (gameManager.currentGameState == GameManager.GameState.Play)
             {
-                timer = 0;
-                Attack();
+                timer++;
+                if (timer > attackInterval)
+                {
+                    timer = 0;
+                    Attack();
+                }
             }
             yield return null;
         }
@@ -92,8 +95,7 @@ public class CharaController : MonoBehaviour
 
     private void CharaDestroy()
     {
-        //キャラを破壊する前に行う処理をここに記入
-        Destroy(this.gameObject);
+        gameManager.RemoveCharasList(this);
     }
 
     /// <summary>
